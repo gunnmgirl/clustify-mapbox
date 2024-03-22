@@ -1,8 +1,13 @@
 "use client";
-import { useState } from "react";
-import Map, { Layer, Source } from "react-map-gl";
-import type { FeatureCollection } from "geojson";
-import type { CircleLayer, ViewStateChangeEvent } from "react-map-gl";
+import { Map, Layer, Source } from "react-map-gl";
+import { useRef } from "react";
+import type { Feature, FeatureCollection, Point } from "geojson";
+import type {
+  CircleLayer,
+  GeoJSONSource,
+  MapLayerMouseEvent,
+  MapRef,
+} from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 const geojson: FeatureCollection = {
@@ -35,8 +40,9 @@ const geojson: FeatureCollection = {
 };
 
 const layerStyle: CircleLayer = {
-  id: "point",
+  id: "clusters",
   type: "circle",
+  source: "custom-data",
   paint: {
     "circle-radius": 10,
     "circle-color": "#007cbf",
@@ -44,22 +50,48 @@ const layerStyle: CircleLayer = {
 };
 
 const MapComponent = () => {
-  const [viewState, setViewState] = useState({
-    longitude: -100,
-    latitude: 40,
-    zoom: 3,
-  });
+  const mapRef = useRef<MapRef>(null);
 
-  const handleOnMove = (event: ViewStateChangeEvent) => {
-    setViewState(event.viewState);
+  const handleOnClick = (event: MapLayerMouseEvent) => {
+    const feature = event?.features?.[0];
+
+    // zoom in on one click only if it's cluster
+    if (feature?.properties?.cluster) {
+      const clusterId = feature.properties.cluster_id;
+
+      if (mapRef?.current) {
+        const mapboxSource = mapRef?.current?.getSource(
+          "custom-data"
+        ) as GeoJSONSource;
+
+        mapboxSource.getClusterExpansionZoom(clusterId, (err, zoom) => {
+          if (err) {
+            return;
+          }
+
+          if (feature.geometry.type === "Point") {
+            mapRef.current?.easeTo({
+              center: [
+                feature.geometry.coordinates[0],
+                feature.geometry.coordinates[1],
+              ],
+              zoom,
+              duration: 500,
+            });
+          }
+        });
+      }
+    }
   };
 
   return (
     <Map
-      {...viewState}
-      onMove={handleOnMove}
+      initialViewState={{ longitude: -100, latitude: 40, zoom: 3 }}
+      onClick={handleOnClick}
+      ref={mapRef}
       mapStyle="mapbox://styles/mapbox/dark-v9"
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
+      interactiveLayerIds={[layerStyle.id]}
     >
       <Source
         id="custom-data"
@@ -67,6 +99,7 @@ const MapComponent = () => {
         data={geojson}
         cluster={true}
         clusterRadius={50}
+        clusterMaxZoom={14}
       >
         <Layer {...layerStyle} />
       </Source>
