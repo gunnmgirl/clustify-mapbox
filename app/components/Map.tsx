@@ -5,6 +5,7 @@ import type { Feature, FeatureCollection, Point } from "geojson";
 import type {
   CircleLayer,
   GeoJSONSource,
+  LayerProps,
   MapLayerMouseEvent,
   MapRef,
 } from "react-map-gl";
@@ -46,6 +47,16 @@ const layerStyle: CircleLayer = {
   paint: {
     "circle-radius": 10,
     "circle-color": "#007cbf",
+  },
+};
+
+export const clusterCountLayer: LayerProps = {
+  id: "clusters-count",
+  type: "symbol",
+  source: "custom-data",
+  layout: {
+    "text-field": "{point_count_abbreviated}",
+    "text-size": 12,
   },
 };
 
@@ -98,10 +109,11 @@ const MapComponent = () => {
         type="geojson"
         data={geojson}
         cluster={true}
-        clusterRadius={50}
+        clusterRadius={200}
         clusterMaxZoom={14}
       >
         <Layer {...layerStyle} />
+        <Layer {...clusterCountLayer} />
       </Source>
     </Map>
   );
