@@ -1,7 +1,7 @@
 "use client";
 import { Map, Layer, Source } from "react-map-gl";
 import { useRef } from "react";
-import type { Feature, FeatureCollection, Point } from "geojson";
+import type { FeatureCollection } from "geojson";
 import type {
   CircleLayer,
   GeoJSONSource,
@@ -17,7 +17,9 @@ const geojson: FeatureCollection = {
     {
       type: "Feature",
       geometry: { type: "Point", coordinates: [-122.4, 37.8] },
-      properties: {},
+      properties: {
+        type: "red",
+      },
     },
     {
       type: "Feature",
@@ -34,7 +36,6 @@ const geojson: FeatureCollection = {
       geometry: { type: "Point", coordinates: [-140, 15] },
       properties: {
         title: "Test point",
-        "marker-symbol": "monument",
       },
     },
   ],
@@ -48,6 +49,17 @@ const layerStyle: CircleLayer = {
     "circle-radius": 10,
     "circle-color": "#007cbf",
   },
+};
+
+const redLayerStyle: LayerProps = {
+  id: "clusters-red",
+  type: "circle",
+  source: "custom-data",
+  paint: {
+    "circle-radius": 10,
+    "circle-color": "red",
+  },
+  filter: ["==", ["get", "type"], "red"],
 };
 
 export const clusterCountLayer: LayerProps = {
@@ -114,6 +126,7 @@ const MapComponent = () => {
       >
         <Layer {...layerStyle} />
         <Layer {...clusterCountLayer} />
+        <Layer {...redLayerStyle} />
       </Source>
     </Map>
   );
