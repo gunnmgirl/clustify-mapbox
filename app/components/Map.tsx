@@ -112,7 +112,7 @@ const MapComponent = () => {
       initialViewState={{ longitude: -100, latitude: 40, zoom: 3 }}
       onClick={handleOnClick}
       ref={mapRef}
-      mapStyle="mapbox://styles/mapbox/dark-v9"
+      mapStyle={process.env.NEXT_PUBLIC_MAPBOX_STYLE_URL}
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
       interactiveLayerIds={[layerStyle.id]}
     >
