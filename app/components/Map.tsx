@@ -49,17 +49,18 @@ const layerStyle: CircleLayer = {
     "circle-radius": 10,
     "circle-color": "#007cbf",
   },
+  filter: ["has", "point_count"],
 };
 
-const redLayerStyle: LayerProps = {
+const unclusteredPointLayer: LayerProps = {
   id: "clusters-red",
-  type: "circle",
+  type: "symbol",
   source: "custom-data",
-  paint: {
-    "circle-radius": 10,
-    "circle-color": "red",
+  filter: ["!", ["has", "point_count"]],
+  layout: {
+    "icon-image": "icons8-pin-50",
+    "icon-allow-overlap": false,
   },
-  filter: ["==", ["get", "type"], "red"],
 };
 
 export const clusterCountLayer: LayerProps = {
@@ -126,7 +127,7 @@ const MapComponent = () => {
       >
         <Layer {...layerStyle} />
         <Layer {...clusterCountLayer} />
-        <Layer {...redLayerStyle} />
+        <Layer {...unclusteredPointLayer} />
       </Source>
     </Map>
   );
