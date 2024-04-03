@@ -24,18 +24,22 @@ const geojson: FeatureCollection = {
     {
       type: "Feature",
       geometry: { type: "Point", coordinates: [-110, 10] },
-      properties: {},
+      properties: {
+        type: "green",
+      },
     },
     {
       type: "Feature",
       geometry: { type: "Point", coordinates: [-100, 10] },
-      properties: {},
+      properties: {
+        type: "red",
+      },
     },
     {
       type: "Feature",
       geometry: { type: "Point", coordinates: [-140, 15] },
       properties: {
-        title: "Test point",
+        type: "green",
       },
     },
   ],
@@ -52,13 +56,32 @@ const layerStyle: CircleLayer = {
   filter: ["has", "point_count"],
 };
 
-const unclusteredPointLayer: LayerProps = {
+const unclusteredPointLayerRed: LayerProps = {
   id: "clusters-red",
   type: "symbol",
   source: "custom-data",
-  filter: ["!", ["has", "point_count"]],
+  filter: [
+    "all",
+    ["!", ["has", "point_count"]],
+    ["==", ["get", "type"], "red"],
+  ],
   layout: {
-    "icon-image": "icons8-pin-50",
+    "icon-image": "tw-provincial-expy-2",
+    "icon-allow-overlap": false,
+  },
+};
+
+const unclusteredPointLayerGreen: LayerProps = {
+  id: "clusters-green",
+  type: "symbol",
+  source: "custom-data",
+  filter: [
+    "all",
+    ["!", ["has", "point_count"]],
+    ["==", ["get", "type"], "green"],
+  ],
+  layout: {
+    "icon-image": "hu-main-2",
     "icon-allow-overlap": false,
   },
 };
@@ -127,7 +150,8 @@ const MapComponent = () => {
       >
         <Layer {...layerStyle} />
         <Layer {...clusterCountLayer} />
-        <Layer {...unclusteredPointLayer} />
+        <Layer {...unclusteredPointLayerRed} />
+        <Layer {...unclusteredPointLayerGreen} />
       </Source>
     </Map>
   );
