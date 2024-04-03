@@ -10,6 +10,7 @@ import type {
   MapRef,
 } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import "app/styles/map.css";
 
 const geojson: FeatureCollection = {
   type: "FeatureCollection",

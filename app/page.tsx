@@ -1,4 +1,4 @@
-import Map from "./components/Map";
+import Map from "app/components/Map";
 
 const Home = () => {
   return (
