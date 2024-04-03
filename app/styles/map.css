@@ -1,3 +1,7 @@
 .mapboxgl-ctrl-attrib-inner {
   display: none;
 }
+
+.mapboxgl-ctrl-bottom-right {
+  display: none;
+}
