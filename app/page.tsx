@@ -1,9 +1,9 @@
-import Map from "app/components/Map";
+import OpenMap from "app/components/OpenMap";
 
 const Home = () => {
   return (
     <main className="min-h-screen p-24 grid">
-      <Map />
+      <OpenMap />
     </main>
   );
 };
