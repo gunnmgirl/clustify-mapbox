@@ -1,6 +1,7 @@
 import { useMap } from "react-leaflet";
 import type { Layer } from "leaflet";
-import { RefObject, useState } from "react";
+import { RefObject, useState, useEffect, useRef } from "react";
+import L from "leaflet";
 
 const OpenMapFilters = ({
   markerRef,
@@ -14,6 +15,7 @@ const OpenMapFilters = ({
   const map = useMap();
   const layer = markerRef || circleGroupRef || featureGroupRef;
   const [showFilters, setShowFilters] = useState(false);
+  const divRef = useRef<HTMLDivElement>(null);
 
   const handleLayer = () => {
     if (layer?.current) {
@@ -25,8 +27,15 @@ const OpenMapFilters = ({
     setShowFilters(!showFilters);
   };
 
+  useEffect(() => {
+    if (divRef?.current) {
+      L.DomEvent.disableClickPropagation(divRef.current);
+      L.DomEvent.disableScrollPropagation(divRef.current);
+    }
+  }, []);
+
   return (
-    <div className="z-1 relative bg-red-200">
+    <div ref={divRef} className="z-1 relative bg-red-200">
       <button onClick={handleFilterButton}>Filter Types</button>
       {showFilters && (
         <ul className="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
