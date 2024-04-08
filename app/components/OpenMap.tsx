@@ -34,14 +34,14 @@ const OpenMap = () => {
           </Marker>
         </LayersControl.Overlay>
         <LayersControl.Overlay name="Layer 2">
-          <Marker position={layerTwo} ref={markerRef}>
+          <Marker position={layerTwo} ref={circleGroupRef}>
             <Popup>
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
           </Marker>
         </LayersControl.Overlay>
         <LayersControl.Overlay name="Layer 3">
-          <Marker position={layerThree} ref={markerRef}>
+          <Marker position={layerThree} ref={featureGroupRef}>
             <Popup>
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
