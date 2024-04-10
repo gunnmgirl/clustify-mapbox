@@ -1,6 +1,8 @@
 "use client";
 import { useRef } from "react";
 import {
+  LayerGroup,
+  LayerGroupProps,
   LayersControl,
   MapContainer,
   Marker,
@@ -13,44 +15,71 @@ import OpenMapControls from "app/components/OpenMapControls";
 import "app/styles/openMap.css";
 
 const layerOne = [51.505, -0.09] as LatLngExpression;
-const layerTwo = [60, -2] as LatLngExpression;
-const layerThree = [40, 1] as LatLngExpression;
+
+const geojson: { coordinates: LatLngExpression; type: string }[] = [
+  { coordinates: [51.505, -0.09], type: "red" },
+  { coordinates: [53, -1], type: "red" },
+  { coordinates: [49, 1], type: "red" },
+  { coordinates: [60, -4], type: "green" },
+  { coordinates: [55, -3], type: "green" },
+  { coordinates: [64, -2], type: "green" },
+  { coordinates: [40, 3], type: "blue" },
+  { coordinates: [45, 2], type: "blue" },
+  { coordinates: [46, 4], type: "blue" },
+];
+
+const data = {
+  red: geojson.filter((item) => item.type === "red"),
+  green: geojson.filter((item) => item.type === "green"),
+  blue: geojson.filter((item) => item.type === "blue"),
+};
 
 const OpenMap = () => {
-  const markerRef = useRef<MarkerType>(null);
-  const circleGroupRef = useRef<MarkerType>(null);
-  const featureGroupRef = useRef<MarkerType>(null);
+  // const markerRef = useRef<MarkerType>(null);
+  // const circleGroupRef = useRef<MarkerType>(null);
+  // const featureGroupRef = useRef<MarkerType>(null);
+
   return (
-    <MapContainer
-      center={layerOne}
-      zoom={13}
-      scrollWheelZoom={false}
-      zoomControl={false}
-    >
+    <MapContainer center={layerOne} zoom={5} zoomControl={false}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={layerOne} ref={markerRef}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
-      <Marker position={layerTwo} ref={circleGroupRef}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
-      <Marker position={layerThree} ref={featureGroupRef}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
-      <OpenMapFilters
+
+      <LayersControl position="topright">
+        <LayersControl.Overlay name="red">
+          <LayerGroup>
+            {data.red.map((item) => (
+              <Marker position={item.coordinates}>
+                <Popup>{item.type}</Popup>
+              </Marker>
+            ))}
+          </LayerGroup>
+        </LayersControl.Overlay>
+        <LayersControl.Overlay name="green">
+          <LayerGroup>
+            {data.green.map((item) => (
+              <Marker position={item.coordinates}>
+                <Popup>{item.type}</Popup>
+              </Marker>
+            ))}
+          </LayerGroup>
+        </LayersControl.Overlay>
+        <LayersControl.Overlay name="blue">
+          <LayerGroup>
+            {data.blue.map((item) => (
+              <Marker position={item.coordinates}>
+                <Popup>{item.type}</Popup>
+              </Marker>
+            ))}
+          </LayerGroup>
+        </LayersControl.Overlay>
+      </LayersControl>
+      {/* <OpenMapFilters
         markerRef={markerRef}
         circleGroupRef={circleGroupRef}
         featureGroupRef={featureGroupRef}
-      />
+      /> */}
       <OpenMapControls center={layerOne} />
     </MapContainer>
   );
