@@ -10,6 +10,7 @@ import {
   TileLayer,
 } from "react-leaflet";
 import OpenMapFilters from "app/components/OpenMapFilters";
+import OpenMapLayerControl from "./OpenMapLayerControl";
 import { LatLngExpression, Marker as MarkerType } from "leaflet";
 import OpenMapControls from "app/components/OpenMapControls";
 import "app/styles/openMap.css";
@@ -45,41 +46,39 @@ const OpenMap = () => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-
-      <LayersControl position="topright">
-        <LayersControl.Overlay name="red">
-          <LayerGroup>
-            {data.red.map((item) => (
-              <Marker position={item.coordinates}>
-                <Popup>{item.type}</Popup>
-              </Marker>
-            ))}
-          </LayerGroup>
-        </LayersControl.Overlay>
-        <LayersControl.Overlay name="green">
-          <LayerGroup>
-            {data.green.map((item) => (
-              <Marker position={item.coordinates}>
-                <Popup>{item.type}</Popup>
-              </Marker>
-            ))}
-          </LayerGroup>
-        </LayersControl.Overlay>
-        <LayersControl.Overlay name="blue">
-          <LayerGroup>
-            {data.blue.map((item) => (
-              <Marker position={item.coordinates}>
-                <Popup>{item.type}</Popup>
-              </Marker>
-            ))}
-          </LayerGroup>
-        </LayersControl.Overlay>
-      </LayersControl>
+      <LayersControl.Overlay name="red">
+        <LayerGroup>
+          {data.red.map((item) => (
+            <Marker position={item.coordinates}>
+              <Popup>{item.type}</Popup>
+            </Marker>
+          ))}
+        </LayerGroup>
+      </LayersControl.Overlay>
+      <LayersControl.Overlay name="green">
+        <LayerGroup>
+          {data.green.map((item) => (
+            <Marker position={item.coordinates}>
+              <Popup>{item.type}</Popup>
+            </Marker>
+          ))}
+        </LayerGroup>
+      </LayersControl.Overlay>
+      <LayersControl.Overlay name="blue">
+        <LayerGroup>
+          {data.blue.map((item) => (
+            <Marker position={item.coordinates}>
+              <Popup>{item.type}</Popup>
+            </Marker>
+          ))}
+        </LayerGroup>
+      </LayersControl.Overlay>
       {/* <OpenMapFilters
         markerRef={markerRef}
         circleGroupRef={circleGroupRef}
         featureGroupRef={featureGroupRef}
       /> */}
+      <OpenMapLayerControl />
       <OpenMapControls center={layerOne} />
     </MapContainer>
   );
