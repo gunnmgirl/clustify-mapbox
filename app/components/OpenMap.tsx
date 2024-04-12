@@ -9,9 +9,8 @@ import {
   Popup,
   TileLayer,
 } from "react-leaflet";
-import OpenMapFilters from "app/components/OpenMapFilters";
 import OpenMapLayerControl from "./OpenMapLayerControl";
-import { LatLngExpression, Marker as MarkerType } from "leaflet";
+import { LatLngExpression } from "leaflet";
 import OpenMapControls from "app/components/OpenMapControls";
 import "app/styles/openMap.css";
 
@@ -36,9 +35,9 @@ const data = {
 };
 
 const OpenMap = () => {
-  // const markerRef = useRef<MarkerType>(null);
-  // const circleGroupRef = useRef<MarkerType>(null);
-  // const featureGroupRef = useRef<MarkerType>(null);
+  const markerRef = useRef(null);
+  const circleGroupRef = useRef(null);
+  const featureGroupRef = useRef(null);
 
   return (
     <MapContainer center={layerOne} zoom={5} zoomControl={false}>
@@ -47,7 +46,7 @@ const OpenMap = () => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <LayersControl.Overlay name="red">
-        <LayerGroup>
+        <LayerGroup ref={featureGroupRef}>
           {data.red.map((item) => (
             <Marker position={item.coordinates}>
               <Popup>{item.type}</Popup>
@@ -56,7 +55,7 @@ const OpenMap = () => {
         </LayerGroup>
       </LayersControl.Overlay>
       <LayersControl.Overlay name="green">
-        <LayerGroup>
+        <LayerGroup ref={circleGroupRef}>
           {data.green.map((item) => (
             <Marker position={item.coordinates}>
               <Popup>{item.type}</Popup>
@@ -65,7 +64,7 @@ const OpenMap = () => {
         </LayerGroup>
       </LayersControl.Overlay>
       <LayersControl.Overlay name="blue">
-        <LayerGroup>
+        <LayerGroup ref={markerRef}>
           {data.blue.map((item) => (
             <Marker position={item.coordinates}>
               <Popup>{item.type}</Popup>
@@ -73,12 +72,11 @@ const OpenMap = () => {
           ))}
         </LayerGroup>
       </LayersControl.Overlay>
-      {/* <OpenMapFilters
+      <OpenMapLayerControl
         markerRef={markerRef}
         circleGroupRef={circleGroupRef}
         featureGroupRef={featureGroupRef}
-      /> */}
-      <OpenMapLayerControl />
+      />
       <OpenMapControls center={layerOne} />
     </MapContainer>
   );
