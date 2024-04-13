@@ -1,6 +1,6 @@
 ## CLUSTIFY MAPBOX
 
-Cluster you data and customize pins on the map.
+Cluster you data and customize pins on the map. Choose between Mapbox and Leaflet and easily customize your map conponents.
 
 ## Getting Started
 
