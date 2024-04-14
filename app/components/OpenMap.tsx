@@ -35,9 +35,9 @@ const data = {
 };
 
 const OpenMap = () => {
-  const markerRef = useRef(null);
-  const circleGroupRef = useRef(null);
-  const featureGroupRef = useRef(null);
+  const blue = useRef(null);
+  const green = useRef(null);
+  const red = useRef(null);
 
   return (
     <MapContainer center={layerOne} zoom={5} zoomControl={false}>
@@ -46,37 +46,39 @@ const OpenMap = () => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <LayersControl.Overlay name="red">
-        <LayerGroup ref={featureGroupRef}>
+        <LayerGroup ref={red}>
           {data.red.map((item) => (
             <Marker position={item.coordinates}>
-              <Popup>{item.type}</Popup>
+              <Popup>
+                <div className={`bg-[${item.type}]`}>{item.type}</div>
+              </Popup>
             </Marker>
           ))}
         </LayerGroup>
       </LayersControl.Overlay>
       <LayersControl.Overlay name="green">
-        <LayerGroup ref={circleGroupRef}>
+        <LayerGroup ref={green}>
           {data.green.map((item) => (
             <Marker position={item.coordinates}>
-              <Popup>{item.type}</Popup>
+              <Popup>
+                <div className={`bg-[${item.type}]`}>{item.type}</div>
+              </Popup>
             </Marker>
           ))}
         </LayerGroup>
       </LayersControl.Overlay>
       <LayersControl.Overlay name="blue">
-        <LayerGroup ref={markerRef}>
+        <LayerGroup ref={blue}>
           {data.blue.map((item) => (
             <Marker position={item.coordinates}>
-              <Popup>{item.type}</Popup>
+              <Popup>
+                <div className={`bg-[${item.type}]`}>{item.type}</div>
+              </Popup>
             </Marker>
           ))}
         </LayerGroup>
       </LayersControl.Overlay>
-      <OpenMapLayerControl
-        markerRef={markerRef}
-        circleGroupRef={circleGroupRef}
-        featureGroupRef={featureGroupRef}
-      />
+      <OpenMapLayerControl blue={blue} green={green} red={red} />
       <OpenMapControls center={layerOne} />
     </MapContainer>
   );

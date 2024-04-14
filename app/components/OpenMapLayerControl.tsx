@@ -10,13 +10,13 @@ type Input = {
 };
 
 const OpenMapLayerControl = ({
-  markerRef,
-  circleGroupRef,
-  featureGroupRef,
+  blue,
+  green,
+  red,
 }: {
-  markerRef: RefObject<Layer>;
-  circleGroupRef: RefObject<Layer>;
-  featureGroupRef: RefObject<Layer>;
+  blue: RefObject<Layer>;
+  green: RefObject<Layer>;
+  red: RefObject<Layer>;
 }) => {
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -24,9 +24,9 @@ const OpenMapLayerControl = ({
   const [showFilters, setShowFilters] = useState(false);
 
   const mappedLayers: { [key: string]: RefObject<Layer> } = {
-    blue: markerRef,
-    red: circleGroupRef,
-    green: featureGroupRef,
+    blue: blue,
+    red: red,
+    green: green,
   };
   const { register, handleSubmit } = useForm<Input>();
 
