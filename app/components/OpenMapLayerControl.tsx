@@ -59,15 +59,19 @@ const OpenMapLayerControl = ({
   return (
     <div
       ref={divRef}
-      className="z-1 absolute top-6 right-2 bg-orange-400 flex flex-col cursor-pointer"
+      className="z-1 absolute top-6 right-2 flex flex-col items-end cursor-pointer"
     >
-      <div onClick={handleFilterButton}>
+      <button className="btn w-30 btn-neutral" onClick={handleFilterButton}>
         <Layers />
-      </div>
+        Filter
+      </button>
       {showFilters && (
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <ul className="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-            <li className="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="p-2 bg-base-200 rounded-lg w-40"
+        >
+          <ul>
+            <li>
               <div className="flex items-center ps-3">
                 <input
                   {...register("layer")}
@@ -84,7 +88,7 @@ const OpenMapLayerControl = ({
                 </label>
               </div>
             </li>
-            <li className="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+            <li>
               <div className="flex items-center ps-3">
                 <input
                   {...register("layer")}
@@ -101,7 +105,7 @@ const OpenMapLayerControl = ({
                 </label>
               </div>
             </li>
-            <li className="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+            <li>
               <div className="flex items-center ps-3">
                 <input
                   {...register("layer")}
@@ -119,7 +123,7 @@ const OpenMapLayerControl = ({
               </div>
             </li>
           </ul>
-          <button className="bg-sky-500 hover:bg-sky-700" type="submit">
+          <button className="btn btn-primary w-[100%] btn-sm" type="submit">
             Filter
           </button>
         </form>
