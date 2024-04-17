@@ -1,9 +1,8 @@
-import { LatLngExpression } from "leaflet";
 import { useEffect, useRef } from "react";
 import { useMap } from "react-leaflet";
 import L from "leaflet";
 
-const OpenMapControls = ({ center }: { center: LatLngExpression }) => {
+const OpenMapControls = ({ center }: { center: L.LatLngExpression }) => {
   const divRef = useRef<HTMLDivElement>(null);
   const map = useMap();
 

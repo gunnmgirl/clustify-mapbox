@@ -1,6 +1,6 @@
 ## CLUSTIFY MAPBOX
 
-Customize pins on the map. Choose between Mapbox and Leaflet and easily customize your map conponents.
+Customize pins on the map. Choose between Mapbox and Leaflet and easily customize your map components.
 
 ## Getting Started
 
