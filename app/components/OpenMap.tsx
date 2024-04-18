@@ -50,39 +50,33 @@ const OpenMap = () => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <LayersControl.Overlay name="red">
-        <LayerGroup ref={red}>
-          {data.red.map((item) => (
-            <Marker position={item.coordinates}>
-              <Popup>
-                <div className={`bg-[${item.type}]`}>{item.type}</div>
-              </Popup>
-            </Marker>
-          ))}
-        </LayerGroup>
-      </LayersControl.Overlay>
-      <LayersControl.Overlay name="green">
-        <LayerGroup ref={green}>
-          {data.green.map((item) => (
-            <Marker position={item.coordinates}>
-              <Popup>
-                <div className={`bg-[${item.type}]`}>{item.type}</div>
-              </Popup>
-            </Marker>
-          ))}
-        </LayerGroup>
-      </LayersControl.Overlay>
-      <LayersControl.Overlay name="blue">
-        <LayerGroup ref={blue}>
-          {data.blue.map((item) => (
-            <Marker position={item.coordinates}>
-              <Popup>
-                <div className={`bg-[${item.type}]`}>{item.type}</div>
-              </Popup>
-            </Marker>
-          ))}
-        </LayerGroup>
-      </LayersControl.Overlay>
+      <LayerGroup ref={red}>
+        {data.red.map((item) => (
+          <Marker position={item.coordinates}>
+            <Popup>
+              <div className={`bg-[${item.type}]`}>{item.type}</div>
+            </Popup>
+          </Marker>
+        ))}
+      </LayerGroup>
+      <LayerGroup ref={green}>
+        {data.green.map((item) => (
+          <Marker position={item.coordinates}>
+            <Popup>
+              <div className={`bg-[${item.type}]`}>{item.type}</div>
+            </Popup>
+          </Marker>
+        ))}
+      </LayerGroup>
+      <LayerGroup ref={blue}>
+        {data.blue.map((item) => (
+          <Marker position={item.coordinates}>
+            <Popup>
+              <div className={`bg-[${item.type}]`}>{item.type}</div>
+            </Popup>
+          </Marker>
+        ))}
+      </LayerGroup>
       <OpenMapLayerControl blue={blue} green={green} red={red} />
       <OpenMapControls center={layerOne} />
     </MapContainer>

@@ -28,7 +28,20 @@ const OpenMapLayerControl = ({
     red: red,
     green: green,
   };
-  const { register, handleSubmit } = useForm<Input>();
+
+  const defaultValues = {
+    layer: Object.entries(mappedLayers)
+      .filter(([key, value]) => {
+        if (value?.current) {
+          return map.hasLayer(value.current);
+        }
+      })
+      .map(([key, _]) => key),
+  };
+
+  const { register, handleSubmit } = useForm<Input>({
+    defaultValues,
+  });
 
   const onSubmit: SubmitHandler<Input> = (data) => {
     Object.entries(mappedLayers).forEach(([key, ref]) => {
@@ -36,10 +49,8 @@ const OpenMapLayerControl = ({
         if (ref?.current) {
           map.addLayer(ref.current);
         }
-      } else {
-        if (ref?.current) {
-          map.removeLayer(ref.current);
-        }
+      } else if (ref?.current) {
+        map.removeLayer(ref.current);
       }
     });
     setShowFilters(false);
