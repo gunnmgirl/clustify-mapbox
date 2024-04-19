@@ -86,6 +86,7 @@ const OpenMapLayerControl = ({
               <div className="flex items-center ps-3">
                 <input
                   {...register("layer")}
+                  defaultChecked
                   value="blue"
                   id="blue-checkbox"
                   type="checkbox"
@@ -103,6 +104,7 @@ const OpenMapLayerControl = ({
               <div className="flex items-center ps-3">
                 <input
                   {...register("layer")}
+                  defaultChecked
                   value="red"
                   id="red-checkbox"
                   type="checkbox"
@@ -120,6 +122,7 @@ const OpenMapLayerControl = ({
               <div className="flex items-center ps-3">
                 <input
                   {...register("layer")}
+                  defaultChecked
                   value="green"
                   id="green-checkbox"
                   type="checkbox"
