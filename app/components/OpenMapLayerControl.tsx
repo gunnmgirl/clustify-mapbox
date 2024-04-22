@@ -44,7 +44,7 @@ const OpenMapLayerControl = ({
     defaultValues,
   });
 
-  const { register, handleSubmit } = methods;
+  const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<Input> = (data) => {
     Object.entries(mappedLayers).forEach(([key, ref]) => {

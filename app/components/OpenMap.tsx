@@ -2,8 +2,6 @@
 import { useRef } from "react";
 import {
   LayerGroup,
-  LayerGroupProps,
-  LayersControl,
   MapContainer,
   Marker,
   Popup,
