@@ -10,26 +10,15 @@ type Input = {
   layer: string[];
 };
 
-const OpenMapLayerControl = ({
-  blue,
-  green,
-  red,
+const Form = ({
+  mappedLayers,
+  map,
+  setShowFilters,
 }: {
-  blue: RefObject<Layer>;
-  green: RefObject<Layer>;
-  red: RefObject<Layer>;
+  mappedLayers: { [key: string]: RefObject<L.Layer> };
+  map: L.Map;
+  setShowFilters: any;
 }) => {
-  const divRef = useRef<HTMLDivElement>(null);
-
-  const map = useMap();
-  const [showFilters, setShowFilters] = useState(false);
-
-  const mappedLayers: { [key: string]: RefObject<Layer> } = {
-    blue: blue,
-    red: red,
-    green: green,
-  };
-
   const defaultValues = {
     layer: Object.entries(mappedLayers)
       .filter(([_, value]) => {
@@ -59,8 +48,55 @@ const OpenMapLayerControl = ({
     setShowFilters(false);
   };
 
-  const handleFilterButton = () => {
-    setShowFilters(!showFilters);
+  return (
+    <FormProvider {...methods}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="p-2 bg-base-200 rounded-lg w-40"
+      >
+        <ul>
+          <li>
+            <div className="flex items-center ps-3">
+              <Checkbox value="blue" label="Blue" name="layer" />
+            </div>
+          </li>
+          <li>
+            <div className="flex items-center ps-3">
+              <Checkbox value="red" label="Red" name="layer" />
+            </div>
+          </li>
+          <li>
+            <div className="flex items-center ps-3">
+              <Checkbox value="green" label="Green" name="layer" />
+            </div>
+          </li>
+        </ul>
+        <button className="btn btn-primary w-[100%] btn-sm" type="submit">
+          Filter
+        </button>
+      </form>
+    </FormProvider>
+  );
+};
+
+const OpenMapLayerControl = ({
+  blue,
+  green,
+  red,
+}: {
+  blue: RefObject<Layer>;
+  green: RefObject<Layer>;
+  red: RefObject<Layer>;
+}) => {
+  const divRef = useRef<HTMLDivElement>(null);
+
+  const map = useMap();
+  const [showFilters, setShowFilters] = useState(false);
+
+  const mappedLayers: { [key: string]: RefObject<Layer> } = {
+    blue: blue,
+    red: red,
+    green: green,
   };
 
   useEffect(() => {
@@ -69,6 +105,10 @@ const OpenMapLayerControl = ({
       L.DomEvent.disableScrollPropagation(divRef.current);
     }
   }, []);
+
+  const handleFilterButton = () => {
+    setShowFilters(!showFilters);
+  };
 
   return (
     <div
@@ -80,33 +120,11 @@ const OpenMapLayerControl = ({
         Filter
       </button>
       {showFilters && (
-        <FormProvider {...methods}>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="p-2 bg-base-200 rounded-lg w-40"
-          >
-            <ul>
-              <li>
-                <div className="flex items-center ps-3">
-                  <Checkbox value="blue" label="Blue" name="layer" />
-                </div>
-              </li>
-              <li>
-                <div className="flex items-center ps-3">
-                  <Checkbox value="red" label="Red" name="layer" />
-                </div>
-              </li>
-              <li>
-                <div className="flex items-center ps-3">
-                  <Checkbox value="green" label="Green" name="layer" />
-                </div>
-              </li>
-            </ul>
-            <button className="btn btn-primary w-[100%] btn-sm" type="submit">
-              Filter
-            </button>
-          </form>
-        </FormProvider>
+        <Form
+          mappedLayers={mappedLayers}
+          map={map}
+          setShowFilters={setShowFilters}
+        />
       )}
     </div>
   );
