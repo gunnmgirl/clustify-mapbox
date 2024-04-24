@@ -2,6 +2,7 @@
 import { useState } from "react";
 import OpenMap from "app/components/OpenMap";
 import MapComponent from "./components/Map";
+import OpenLayers from "./components/OpenLayers";
 
 const Home = () => {
   const [tab, setTab] = useState("mapbox");
@@ -25,10 +26,17 @@ const Home = () => {
         >
           Leaflet
         </button>
+        <button
+          className={`tab tab-lg ${tab === "open-layers" ? "tab-active" : ""}`}
+          onClick={() => handleTabChange("open-layers")}
+        >
+          Open Layers
+        </button>
       </div>
       <div className="pt-4">
         {tab === "mapbox" && <MapComponent />}
         {tab === "leaflet" && <OpenMap />}
+        {tab === "open-layers" && <OpenLayers />}
       </div>
     </main>
   );
