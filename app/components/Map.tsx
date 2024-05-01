@@ -1,5 +1,5 @@
 "use client";
-import { Map, Layer, Source } from "react-map-gl";
+import { Map, Layer, Source, NavigationControl } from "react-map-gl";
 import { useRef } from "react";
 import type { FeatureCollection } from "geojson";
 import type {
@@ -149,6 +149,7 @@ const MapComponent = () => {
         clusterRadius={200}
         clusterMaxZoom={14}
       >
+        <NavigationControl />
         <Layer {...layerStyle} />
         <Layer {...clusterCountLayer} />
         <Layer {...unclusteredPointLayerRed} />
