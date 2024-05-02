@@ -149,7 +149,7 @@ const MapComponent = () => {
         clusterRadius={200}
         clusterMaxZoom={14}
       >
-        <NavigationControl />
+        <NavigationControl position="top-right" showCompass={false} />
         <Layer {...layerStyle} />
         <Layer {...clusterCountLayer} />
         <Layer {...unclusteredPointLayerRed} />
