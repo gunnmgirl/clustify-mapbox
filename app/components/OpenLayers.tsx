@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Map, View } from "ol";
 import TileLayer from "ol/layer/Tile";
 import { XYZ } from "ol/source";
+import { defaults as defaultControls } from "ol/control";
 
 const OpenLayers = () => {
   useEffect(() => {
@@ -18,6 +19,7 @@ const OpenLayers = () => {
         center: [0, 0],
         zoom: 2,
       }),
+      controls: defaultControls(),
     });
     return () => {
       map.setTarget("");
