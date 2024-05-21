@@ -27,7 +27,9 @@ const Home = () => {
           Leaflet
         </button>
         <button
-          className={`tab tab-lg ${tab === "open-layers" ? "tab-active" : ""}`}
+          className={`tab tab-lg ${
+            tab === "open-layers" ? "tab-active" : ""
+          } overflow-hidden whitespace-nowrap block overflow-ellipsis`}
           onClick={() => handleTabChange("open-layers")}
         >
           Open Layers
