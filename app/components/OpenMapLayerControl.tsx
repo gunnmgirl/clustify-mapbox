@@ -117,7 +117,7 @@ const OpenMapLayerControl = ({
     >
       <button className="btn w-30 btn-neutral" onClick={handleFilterButton}>
         <Layers />
-        Filter
+        <span className="hidden sm:inline">Filter</span>
       </button>
       {showFilters && (
         <Form
