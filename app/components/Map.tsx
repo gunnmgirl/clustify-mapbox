@@ -1,7 +1,12 @@
 "use client";
-import { Map, Layer, Source, NavigationControl } from "react-map-gl";
-import { useRef } from "react";
-import type { FeatureCollection } from "geojson";
+import { Map, Layer, Source, NavigationControl, Popup } from "react-map-gl";
+import { useRef, useState } from "react";
+import type {
+  Feature,
+  FeatureCollection,
+  GeoJsonProperties,
+  Point,
+} from "geojson";
 import type {
   CircleLayer,
   GeoJSONSource,
@@ -97,11 +102,21 @@ export const clusterCountLayer: LayerProps = {
   },
 };
 
+const isPointGeometry = (
+  geometry: GeoJSON.Geometry
+): geometry is GeoJSON.Point => {
+  return geometry.type === "Point";
+};
+
 const MapComponent = () => {
   const mapRef = useRef<MapRef>(null);
+  const [pointInfo, setPointInfo] = useState<
+    Feature<Point, GeoJsonProperties> | undefined
+  >(undefined);
 
   const handleOnClick = (event: MapLayerMouseEvent) => {
     const feature = event?.features?.[0];
+    setPointInfo(undefined);
 
     // zoom in on one click only if it's cluster
     if (feature?.properties?.cluster) {
@@ -129,6 +144,10 @@ const MapComponent = () => {
           }
         });
       }
+    } else {
+      if (feature && isPointGeometry(feature.geometry)) {
+        setPointInfo(feature as Feature<Point, GeoJsonProperties>);
+      }
     }
   };
 
@@ -139,7 +158,7 @@ const MapComponent = () => {
       ref={mapRef}
       mapStyle={process.env.NEXT_PUBLIC_MAPBOX_STYLE_URL}
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
-      interactiveLayerIds={[layerStyle.id]}
+      interactiveLayerIds={[layerStyle.id, unclusteredPointLayerRed.id ?? ""]}
     >
       <Source
         id="custom-data"
@@ -155,6 +174,15 @@ const MapComponent = () => {
         <Layer {...unclusteredPointLayerRed} />
         <Layer {...unclusteredPointLayerGreen} />
       </Source>
+      {pointInfo && (
+        <Popup
+          longitude={pointInfo.geometry.coordinates[0]}
+          latitude={pointInfo.geometry.coordinates[1]}
+          anchor="bottom"
+        >
+          {pointInfo?.properties?.type}
+        </Popup>
+      )}
     </Map>
   );
 };
