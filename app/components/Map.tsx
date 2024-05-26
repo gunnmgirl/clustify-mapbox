@@ -158,7 +158,11 @@ const MapComponent = () => {
       ref={mapRef}
       mapStyle={process.env.NEXT_PUBLIC_MAPBOX_STYLE_URL}
       mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
-      interactiveLayerIds={[layerStyle.id, unclusteredPointLayerRed.id ?? ""]}
+      interactiveLayerIds={[
+        layerStyle.id,
+        unclusteredPointLayerRed.id ?? "",
+        unclusteredPointLayerGreen.id ?? "",
+      ]}
     >
       <Source
         id="custom-data"
@@ -179,8 +183,10 @@ const MapComponent = () => {
           longitude={pointInfo.geometry.coordinates[0]}
           latitude={pointInfo.geometry.coordinates[1]}
           anchor="bottom"
+          style={{ color: "black" }}
+          closeOnClick={false}
         >
-          {pointInfo?.properties?.type}
+          <span>{pointInfo?.properties?.type}</span>
         </Popup>
       )}
     </Map>
