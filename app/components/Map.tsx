@@ -183,7 +183,7 @@ const MapComponent = () => {
           longitude={pointInfo.geometry.coordinates[0]}
           latitude={pointInfo.geometry.coordinates[1]}
           anchor="bottom"
-          style={{ color: "black" }}
+          style={{ color: pointInfo?.properties?.type ?? "black" }}
           closeOnClick={false}
         >
           <span>{pointInfo?.properties?.type}</span>
