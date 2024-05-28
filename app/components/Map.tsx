@@ -186,7 +186,9 @@ const MapComponent = () => {
           style={{ color: pointInfo?.properties?.type ?? "black" }}
           closeOnClick={false}
         >
-          <span>{pointInfo?.properties?.type}</span>
+          <p>{`type: ${pointInfo?.properties?.type}`}</p>
+          <p>{`latitude: ${pointInfo.geometry.coordinates[0]}`}</p>
+          <p>{`longitude: ${pointInfo.geometry.coordinates[1]}`}</p>
         </Popup>
       )}
     </Map>
