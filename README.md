@@ -1,6 +1,6 @@
 ## CLUSTIFY MAPBOX
 
-Customize pins on the map. Choose between Mapbox and Leaflet and easily customize your map components.
+Customize pins on the map. Choose between Mapbox, Leaflet and OpenLayers and easily customize your map components.
 
 ## Getting Started
 
@@ -21,6 +21,7 @@ You can customize your map through [Mapbox Studio](https://studio.mapbox.com/).
 ## Powered by
 
 [mapbox](https://docs.mapbox.com/)\
-[react-map-gl](https://visgl.github.io/react-map-gl/docs/get-started)
-
+[react-map-gl](https://visgl.github.io/react-map-gl/docs/get-started)\
+[openlayers](https://openlayers.org/)\
+[leaflet](https://leafletjs.com/)\
 react-map-gl makes using Mapbox GL JS in React applications easy.
