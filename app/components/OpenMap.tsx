@@ -61,7 +61,7 @@ const OpenMap = () => {
         {data.green.map((item) => (
           <Marker key={item.id} position={item.coordinates}>
             <Popup>
-              <div className={`bg-[${item.type}]`}>{item.type}</div>
+              <div className={`bg-[${item.type}]`}>{`Type: ${item.type}`}</div>
             </Popup>
           </Marker>
         ))}
