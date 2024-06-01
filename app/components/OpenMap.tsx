@@ -52,7 +52,7 @@ const OpenMap = () => {
         {data.red.map((item) => (
           <Marker key={item.id} position={item.coordinates}>
             <Popup>
-              <div className={`bg-[${item.type}]`}>{item.type}</div>
+              <div className={`text-${item.type}-500`}>{item.type}</div>
             </Popup>
           </Marker>
         ))}
@@ -61,7 +61,9 @@ const OpenMap = () => {
         {data.green.map((item) => (
           <Marker key={item.id} position={item.coordinates}>
             <Popup>
-              <div className={`bg-[${item.type}]`}>{`Type: ${item.type}`}</div>
+              <div
+                className={`text-${item.type}-500`}
+              >{`Type: ${item.type}`}</div>
             </Popup>
           </Marker>
         ))}
@@ -70,7 +72,7 @@ const OpenMap = () => {
         {data.blue.map((item) => (
           <Marker key={item.id} position={item.coordinates}>
             <Popup>
-              <div className={`bg-[${item.type}]`}>{item.type}</div>
+              <div className={`text-${item.type}-500`}>{item.type}</div>
             </Popup>
           </Marker>
         ))}
