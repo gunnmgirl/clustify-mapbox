@@ -12,7 +12,7 @@ const Home = () => {
   };
 
   return (
-    <main className="min-h-screen p-24 grid grid-rows-[auto,1fr]">
+    <main className="min-h-screen p-16 grid grid-rows-[auto,1fr]">
       <div className="tabs tabs-boxed">
         <button
           className={`tab tab-lg ${tab === "mapbox" ? "tab-active" : ""}`}
